@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Vård av husdjur API
+  version: 1.0.0
+  description: API för att starta huvudflöde Vård av husdjur
+
+paths:
+  /vah:
+    post:
+      tags: [VahController]
+      operationId: postVah
+      summary: Starta flöde VAH
+      description: Starta huvudflöde för Vård av husdjur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VahRequest'
+      responses:
+        '200':
+          description: Huvudflöde startat OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VahResponse'
+        '400':
+          description: Bad request (t.ex. felaktigt personnummer)
+components:
+  schemas:
+    Personnummer:
+      type: string
+      description: Svenskt personnummer (12 siffror med bindestreck)
+      pattern: '^\d{8}-\d{4}$'
+      example: "19990101-0123"
+    VahRequest:
+      type: object
+      required:
+        - pnr
+      properties:
+        pnr:
+          $ref: '#/components/schemas/Personnummer'
+    VahResponse:
+      type: object
+      required:
+        - id
+        - pnr
+        - processId
+        - rtfResult
+        - rtfManuellResult
+      properties:
+        id:
+          type: string
+          example: "7fac2462-d471-4cbf-b966-260837fd81d6"
+        pnr:
+          $ref: '#/components/schemas/Personnummer'
+        processId:
+          type: string
+          example: "7fac2462-d471-4cbf-b966-260837fd81d6"
+        rtfResult:
+          type: boolean
+          description: Utfall av automatisk RTF-regel
+        rtfManuellResult:
+          type: boolean
+          description: Utfall av manuell RTF-regel
+
