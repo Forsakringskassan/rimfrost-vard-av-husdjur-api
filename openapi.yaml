@@ -46,8 +46,6 @@ components:
         - id
         - pnr
         - processId
-        - rtfResult
-        - rtfManuellResult
       properties:
         id:
           type: string
@@ -57,10 +55,3 @@ components:
         processId:
           type: string
           example: "7fac2462-d471-4cbf-b966-260837fd81d6"
-        rtfResult:
-          type: boolean
-          description: Utfall av automatisk RTF-regel
-        rtfManuellResult:
-          type: boolean
-          description: Utfall av manuell RTF-regel
-
